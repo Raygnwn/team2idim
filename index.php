@@ -116,9 +116,11 @@
                         <div class="alert alert-info">
                             <h3 style="text-align:center"> Silahkan Login Terlebih Dahulu  !</h3>
                             <hr/>
-                            <button type="button" class="btn btn-primary btn-lg"
-                            style="text-align:center"><a href="login.php" style="color:white">Login Disini</a></button>
-                            <!-- <p style="text-align:center"><a href="login.php">Login Disini</a></p> -->
+                            <div style="display: flex; position: relative;justify-content: center">
+                                <button type="button" class="btn btn-primary btn-lg"
+                                style="text-align:center"><a href="login.php" style="color:white">Login Disini</a></button>
+                                <!-- <p style="text-align:center"><a href="login.php">Login Disini</a></p> -->
+                            </div>
                         </div>
                     <?php 
                     }?>

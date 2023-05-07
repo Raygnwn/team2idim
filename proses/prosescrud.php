@@ -83,8 +83,7 @@ class prosesCrud {
 
     function edit_data_barang($tabel,$data,$where,$id)
     {
-        // sumber kode 
-        // https://stackoverflow.com/questions/23019219/creating-generic-update-function-using-php-mysql
+
         $setPart = array();
         foreach ($data as $key => $value)
         {
