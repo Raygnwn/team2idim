@@ -165,6 +165,47 @@ class prosesCrud {
         return $row ->execute(array($id));
     }
     */
+        // mencari kalkulasi keuntungan per barang
+        function kalkulasi_keuntungan()
+        {
+            $row = $this->db->prepare("SELECT 
+                                        b.NamaBarang,
+                                        tbeli.jmlbarangbeli,
+                                        tjual.jmlbarangjual,
+                                        tbeli.jmlbarangbeli - tjual.jmlbarangjual stok,
+                                        b.satuan,
+                                        tjual.hargatotperitem - tbeli.hargatotperitem keuntungan
+                                      FROM 
+                                        (select totbeli.idbarang,
+                                            sum(totbeli.jumlahpembelian) jmlbarangbeli,
+                                            sum(totbeli.hargatotbeli) hargatotperitem
+                                         from (select b.IdBarang,
+                                                pem.jumlahpembelian,
+                                                pem.hargabeli,
+                                                pem.jumlahpembelian*pem.hargabeli as hargatotbeli 
+                                               from barang b,
+                                                    pembelian pem
+                                               where b.IdBarang = pem.idbarang) totbeli
+                                               GROUP by totbeli.idbarang) tbeli,
+                                              (select totjual.idbarang,
+                                                      sum(totjual.jumlahpenjualan) jmlbarangjual,
+                                                      sum(totjual.hargatotjual) hargatotperitem
+                                               from (select b.IdBarang,
+                                                      pen.jumlahpenjualan,
+                                                      pen.hargajual,
+                                                      pen.jumlahpenjualan*pen.hargajual as 
+                                                      hargatotjual 
+                                                    from barang b,
+                                                        penjualan pen
+                                                    where b.IdBarang = pen.idbarang) totjual
+                                                    GROUP by totjual.idbarang) tjual,
+                                         barang b
+                                        where b.IdBarang = tbeli.idbarang 
+                                        and b.IdBarang = tjual.idbarang");
+            $row->execute();
+            $hasil = $row->fetchall();
+            return $hasil;
+        }
 
 }
         
